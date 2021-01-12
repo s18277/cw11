@@ -1,10 +1,12 @@
 using Cw11.Models;
+using Cw11.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace Cw11
 {
@@ -19,6 +21,10 @@ namespace Cw11
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            );
+            services.AddScoped<IClinicDbService, EfcClinicDbService>();
             services.AddDbContext<ClinicDbContext>(options =>
                 options.UseSqlServer(Configuration["DatabaseConnectionString"]));
             services.AddControllers();
