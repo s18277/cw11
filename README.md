@@ -17,6 +17,11 @@ Zapewnia on 5 końcówek:
 * Modyfikacja studenta - zapytanie `HTTP PUT` na ścieżkę `api/doctors/{id}`
 * Usunięcie studenta - zapytanie `HTTP DELETE` na ścieżkę `api/doctors/{id}`
 
+Szczegóły można sprawdzić w dokumentacji wygenerowanej automatycznie przy pomocy
+[Swagger/OpenAPI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore).
+Dokumentację w formacie graficznym można otworzyć przez ścieżkę `/swagger/index.html`.
+Dokuemntację w formacie JSON można pobrać ze ścieżki `/swagger/v1/swagger.json`.
+
 Komunikacja z bazą danych jest realizowana przez serwis - interfejs `Cw11.Services.IClinicDbService`
 i jego implementację `Cw11.Services.EfcClinicDbService`. Implementacja ta wykorzystuje `Entity
 Framework Core` i `LINQ`.

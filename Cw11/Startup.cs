@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 namespace Cw11
@@ -28,11 +29,25 @@ namespace Cw11
             services.AddDbContext<ClinicDbContext>(options =>
                 options.UseSqlServer(Configuration["DatabaseConnectionString"]));
             services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Clinic API",
+                    Version = "v1",
+                    Description = "Clinic API prepared by Paweł Rutkowski (s18277) for purposes of APBD.",
+                    Contact = new OpenApiContact {Name = "Paweł Rutkowski s18277"}
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Clinic API"));
 
             app.UseRouting();
 
